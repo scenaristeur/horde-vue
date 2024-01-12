@@ -34,6 +34,7 @@ export class HordeClient {
       "koboldcpp/mistral-pygmalion-7b.Q5_K_M",
       "koboldcpp/OpenHermes-2.5-AshhLimaRP-Mistral-7B",
     ];
+    this.state = null
   }
 
   log() {
@@ -45,6 +46,7 @@ export class HordeClient {
     this.api_key = api_key;
   }
   async send(req) {
+    let client = this;
     console.log(req.messages);
     this.headers = {
       Accept: "application/json",
@@ -52,7 +54,7 @@ export class HordeClient {
       "Client-Agent": this.client_agent,
       "Content-Type": "application/json",
     };
-    let client = this;
+
     let result = { job: {} };
     let prompt = this.formatPrompt(req.messages);
     let llm_request_message = {
@@ -107,7 +109,9 @@ export class HordeClient {
             resolve(text); // Résoudre la promesse avec le texte
           } else {
             console.log(check.data);
+            
           }
+          client.state = check.data;
         }, 3000);
       });
 
