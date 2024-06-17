@@ -25,7 +25,7 @@ export class HordeClient {
       rep_pen_slope: 0.7,
       sampler_order: [6, 0, 1, 3, 4, 2, 5],
       use_default_badwordsids: false,
-      stop: [".", "[INST]"],
+      stop_sequence: options.stop_sequence ||["[INST]"]
     };
     this.models = [
       "koboldcpp/LLaMA2-13B-Tiefighter",
